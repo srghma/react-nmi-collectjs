@@ -1,5 +1,5 @@
 import CollectContext from "./CollectJSContext";
-import React, { useReducer, useCallback } from 'react';
+import React, { useState, useReducer, useCallback, useEffect } from 'react';
 
 function reducer(state, action) {
     switch (action.type) {
