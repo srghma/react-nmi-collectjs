@@ -1,9 +1,5 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 export default function CheckNameInput() {
-    const field = useRef();
-
-    return <>
-        <div id='checkname' ref={field}/>
-    </>
+    return <div id='checkname' />
 }

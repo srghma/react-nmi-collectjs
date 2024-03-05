@@ -1,9 +1,5 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 export default function CardExpirationInput() {
-    const field = useRef();
-
-    return <>
-        <div id='ccexp' ref={field}/>
-    </>
+    return <div id='ccexp' />
 }

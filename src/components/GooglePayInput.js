@@ -1,9 +1,5 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 export default function GooglePayInput() {
-    const field = useRef();
-
-    return <>
-        <div id='googlepaybutton' ref={field}/>
-    </>
+    return <div id='googlepaybutton' />
 }

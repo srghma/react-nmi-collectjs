@@ -1,9 +1,5 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 export default function CardCVVInput() {
-    const field = useRef();
-
-    return <>
-        <div id='cvv' ref={field}/>
-    </>
+    return <div id='cvv' />
 }
