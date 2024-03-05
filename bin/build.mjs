@@ -1,8 +1,18 @@
-const path = require('path');
-const packlist = require('npm-packlist');
-const tar = require('tar');
-const execa = require('execa');
-const packageJson = require('../package.json');
+import { execa } from 'execa';
+
+// Other import statements remain the same
+import path from 'path';
+import packlist from 'npm-packlist';
+import tar from 'tar';
+import { promises as fsPromises } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const fileContents = await fsPromises.readFile('package.json', 'utf8');
+const packageJson = JSON.parse(fileContents);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const projectRoot = path.join(__dirname, '../');
 const srcRoot = path.join(projectRoot, 'src');
@@ -35,7 +45,7 @@ Promise.resolve(true)
         ]),
     )
     .then(() => {
-        createZip()
+        // createZip()
     })
     .catch((err) => {
         if (err) console.error(err.stack || err.toString());
