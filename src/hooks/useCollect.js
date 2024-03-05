@@ -3,35 +3,32 @@ import CollectJSContext from "../contexts/CollectJSContext";
 
 export default function useCollect(config) {
     const [paymentToken, setPaymentToken] = useState(null);
-    const [collect, setCollect] = useState(null);
-    const { unsetErrors, addError, collectJSPromise } = useContext(CollectJSContext);
+    const { unsetErrors, addError, collectJS } = useContext(CollectJSContext);
 
     const reset = useCallback(() => {
-        collect.retokenize();
+        collectJs.retokenize();
         setPaymentToken(null);
-    }, [collect]);
+    }, [collectJs]);
 
     useEffect(() =>  {
-        collectJSPromise.then((collectJS) => {
-            setCollect(collectJS);
-            collectJS.configure({
-                ...config,
-                callback: function(e) {
-                    console.log(e)
-                    setPaymentToken(e);
-                },
-                validationCallback: function(fieldName, valid, message) {
-                    if (valid) {
-                        unsetErrors(fieldName);
-                    } else {
-                        unsetErrors(fieldName);
-                        addError(fieldName, message);
-                    }
-                }
-            })
-        })
-    // No dependencies - we don't ever want this to run more than once. Calling this more times will cause fields to blink.
-    }, [])
+      if (!collectJS) { return }
 
-    return [collect, paymentToken, reset]
+      collectJS.configure({
+          ...config,
+          callback: function(e) {
+              console.log(e)
+              setPaymentToken(e);
+          },
+          validationCallback: function(fieldName, valid, message) {
+              if (valid) {
+                  unsetErrors(fieldName);
+              } else {
+                  unsetErrors(fieldName);
+                  addError(fieldName, message);
+              }
+          }
+      })
+    }, [collectJS])
+
+    return [collectJS, paymentToken, reset]
 }
